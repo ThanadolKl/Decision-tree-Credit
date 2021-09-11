@@ -203,3 +203,17 @@
     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
      0.0      0.0      5.0   1017.4    395.5 100000.0 
 ~~~
+
+
+
+## Build model
+## Model I 
+~~~
+res_1
+  -   + 
+101  95 
+~~~
+
+
+
+
