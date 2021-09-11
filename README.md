@@ -249,10 +249,12 @@ Prediction  -  +
 
 ![0 01 default](https://user-images.githubusercontent.com/67301601/132957407-36d3661d-bee3-4450-b425-b8adbeff02ec.png)
 
+---
+
 ## Adjusting Complexity parameter
 > ทำ pruning โดยปรับค่า Complexity parameter จาก 0.001-1 เพื่อหาช่วงที่มี accuracy และ F1 score มากที่สุด โดยพบว่าช่วง 0.02-0.6 มีค่ามากที่สุด คือ accuracy 0.8724 และ F1 score 0.8768
 
 | CP | Accuracy | F1-score |
 |----|----------|----------|
-
+| 0.001 |	0.8571 |	0.8495
 
