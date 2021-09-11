@@ -34,7 +34,14 @@
                     Max.   :100000.0          
 ~~~
 
+### as num
 
+~~~
+> typeof(credit_df$A2)
+[1] "double"
+> typeof(credit_df$A14)
+[1] "double"
+~~~
 
 
 
