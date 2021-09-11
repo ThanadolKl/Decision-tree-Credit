@@ -284,3 +284,13 @@ Prediction  -  +
 |0.8	|0.5153|	NA |
 |0.9	|0.5153|	NA |
 |1	|0.5153|	NA |
+
+![accuracy vs  cp](https://user-images.githubusercontent.com/67301601/132957763-5cfc587f-843a-4866-8aa2-cc1291a2b6c9.png)
+
+![F1 score vs  cp](https://user-images.githubusercontent.com/67301601/132957777-1eef282f-50fe-4e17-9e20-41736e5fb695.png)
+
+> จะเห็นว่า Accuracy ไม่ค่อยต่างกันมาก จนกระทั่งถึงค่า Cp = 0.7 ซึ่งค่ามาก model ก็ simple เกินไป ทำให้ accuracy ตก และ model ทำนายทุกอย่างออกมาเป็น class เดียวจึงคำนวณ Precision กับ Recall ไม่ได้ ทำให้ค่า F1-score เป็น NA  
+
+> เมื่อลองเปรียบเทียบลักษณะของ Tree ในค่า Cp ที่แตกต่างกันพบว่า ค่า Cp = 0.001 ซึ่งละเอียดที่สุดก็จะได้ดังรูปที่ 1 (file: DT_0.001) ค่า Cp = 0.01 ก็จะละเอียดน้อยลงมาดังรูปที่ 2 (fole: DT_0.01) และค่า Cp = 0.7 ซึ่ง simple เกินไป ก็จะได้ดังรูปที่ 3 (file: DT_0.7)
+
+
