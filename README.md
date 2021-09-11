@@ -178,7 +178,7 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
  5     4    15
 ~~~
 
-### Column: A12
+#### Column: A12
 
 ~~~
   A12       n
