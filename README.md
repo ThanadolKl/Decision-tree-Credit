@@ -248,11 +248,22 @@ credit_clean <- na.omit(credit_df)
 ## Building Decision tree
 ### Training and Test Sets: Splitting Data
 > ทำการแบ่งเป็น Training set 70% และ Test set 30% 
-> เมื่อนำมา Train model และทำการ Predict ค่าแล้ว นำไปคำนวณ Confusion matrix ได้ค่า Accuracy = 0.8673
-## Model I 
+> เมื่อนำมา Train model และทำการ Predict ค่าแล้ว นำไปคำนวณ Confusion matrix ได้ค่า Accuracy = 0.8673 และ F1-score = 0.8632 (ซึ่งค่า cp ตอนนี้ใช้ค่า Default = 0.01)
 
+~~~
+Confusion Matrix and Statistics
 
+          Reference
+Prediction  -  +
+         - 88 13
+         + 13 82
+                                          
+               Accuracy : 0.8673  
+               F1 : 0.8632      
+~~~
 
+> ซึ่งจากค่า Accuracy และ F1-score ที่ได้ก็พบว่าค่อนข้างดีเลยทีเดียว และเมื่อทำการ plot Decision tree ออกมา ก็ได้ตามนี้ (file: Dt_0.01)
+>
 ## Adjusting Complexity parameter
 > ทำ pruning โดยปรับค่า Complexity parameter จาก 0.001-1 เพื่อหาช่วงที่มี accuracy และ F1 score มากที่สุด โดยพบว่าช่วง 0.02-0.6 มีค่ามากที่สุด คือ accuracy 0.8724 และ F1 score 0.8768
 
