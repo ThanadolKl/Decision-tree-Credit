@@ -1,7 +1,15 @@
 # Decision-tree-Credit
 
+# Contens
+* Data Preparation
+* Exploratory Data Analysis --> Univariate
+* Data Cleaning --> Remove NA
+* Building Decision tree
+* Evaluating model
+* Adjusting Complexity parameter
 
-##  Summary Dataset
+##  Data Preparation
+> เมื่อทำการ
 ~~~
 > summary(credit_df)
       A1                 A2                  A3              A4           
