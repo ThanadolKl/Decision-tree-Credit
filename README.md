@@ -8,6 +8,8 @@
 * Evaluating model
 * Adjusting Complexity parameter
 
+---
+
 ##  Data Preparation
 > เมื่อทำการ Import data เข้ามาแล้ว ทำการ summary data ดูคร่าว ๆ ก่อนว่า data ในแต่ละ column เป็น type อะไร 
 ~~~
@@ -49,15 +51,17 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 ~~~
 > จึงต้องทำการเปลี่ยน A2 และ A14 เป็น as.numeric(credit_clean$A2) and as.numeric(credit_clean$A14)
 
-### as num
-
+### Change character to numeric
 ~~~
 > typeof(credit_df$A2)
 [1] "double"
 > typeof(credit_df$A14)
 [1] "double"
 ~~~
-## Univariate
+---
+
+## Exploratory Data Analysis [Univariate]
+> ทำการ print data ในแต่ละ column ว่ามีอะไรบ้าง มีจำนวนเท่าไหร่ มี NA ตรงไหนบ้าง
 ### A1
 ~~~
 # Groups:   A1 [3]
@@ -69,34 +73,16 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 ~~~
 ### A2
 ~~~
-  A2     n
-   <dbl> <int>
- 1  13.8     1
- 2  15.2     1
- 3  15.8     1
- 4  15.8     2
- 5  15.9     1
- 6  16       2
- 7  16.1     2
- 8  16.2     1
- 9  16.2     2
-10  16.3     3
+> summary(credit_df$A2)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  13.75   22.60   28.46   31.57   38.23   80.25      12 
 ~~~
 
 ### A3
 ~~~
-   A3     n
-   <dbl> <int>
- 1 0        19
- 2 0.04      5
- 3 0.08      1
- 4 0.085     1
- 5 0.125     5
- 6 0.165     8
- 7 0.17      1
- 8 0.205     3
- 9 0.21      3
-10 0.25      6
+> summary(credit_df$A3)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.000   1.000   2.750   4.759   7.207  28.000 
 ~~~
 ### A4
 ~~~
@@ -218,10 +204,26 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
      0.0      0.0      5.0   1017.4    395.5 100000.0 
 ~~~
+> จะเห็นว่ามีข้อมูล '?' และ NA อยู่หลายจุด อย่างแรกที่ทำคือ เปลี่ยน '?' --> NA แล้วกำจัด NA ทีเดียว 
+~~~
+credit_df[credit_df == '?'] <- NA
+credit_clean <- na.omit(credit_df)
+~~~
+> ก็จะพบว่าจำนวนข้อมูลที่ clean แล้ว เหลือ 653 rows (จากตอนแรก 690 rows) 
+~~~
+> nrow(credit_clean)
+[1] 653
+~~~
 
-
-
+---
 ## Build model
+~~~
+model_1 <- rpart(Y ~ ., data = credit.train)  ## cp default == 0.01
+model_1$variable.importance
+res_1 <- predict(model_1, credit.test, type = 'class')
+confusionMatrix(res_1, as.factor(credit.test$Y), positive="+", mode="prec_recall")
+~~~
+> จะได้ว่า
 ## Model I 
 
 
