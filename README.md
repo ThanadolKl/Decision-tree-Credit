@@ -62,7 +62,7 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 
 ## Exploratory Data Analysis [Univariate]
 > ทำการ print data ในแต่ละ column ว่ามีอะไรบ้าง มีจำนวนเท่าไหร่ มี NA ตรงไหนบ้าง
-### A1
+#### A1
 ~~~
 # Groups:   A1 [3]
   A1        n
