@@ -1,5 +1,5 @@
 # Decision-tree-Credit
-
+# Authors : 
 # Contens
 * Data Preparation
 * Exploratory Data Analysis --> Univariate
@@ -71,7 +71,7 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 2 a       210
 3 b       468
 ~~~
-### A2
+#### A2
 ~~~
 > summary(credit_df$A2)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
