@@ -11,6 +11,28 @@
 ---
 
 ##  Data Preparation
+
+~~~
+install.packages("tidyr")
+install.packages("dplyr")
+install.packages("rpart")
+install.packages("rpart.plot")
+install.packages("caret")
+library(tidyr)
+library(dplyr)
+library(rpart)
+library(rpart.plot)
+library(caret)
+###### Import dataset 
+credit_df <- read.csv("credit.csv")
+credit_df
+## Rename column name
+names(credit_df)[names(credit_df) == 'ï..A1'] <- 'A1'
+names(credit_df)[names(credit_df) == 'A16'] <- 'Y'
+credit_df
+summary(credit_df)
+
+~~~
 > เมื่อทำการ Import data เข้ามาแล้ว ทำการ summary data ดูคร่าว ๆ ก่อนว่า data ในแต่ละ column เป็น type อะไร 
 
 ~~~
@@ -54,6 +76,14 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 
 > จึงต้องทำการเปลี่ยน A2 และ A14 เป็น as.numeric(credit_clean$A2) and as.numeric(credit_clean$A14)
 
+~~~
+credit_df$A2 <- as.numeric(credit_df$A2)
+credit_df$A14 <- as.numeric(credit_df$A14)
+summary(credit_df$A4)
+typeof(credit_df$A2)
+typeof(credit_df$A14)
+~~~
+
 ### Change character to numeric
 
 ~~~
@@ -67,8 +97,12 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 
 ## Exploratory Data Analysis [Univariate]
 > ทำการ print data ในแต่ละ column ว่ามีอะไรบ้าง มีจำนวนเท่าไหร่ มี NA ตรงไหนบ้าง
-#### Column: A1
 
+~~~
+credit_df%>% group_by(A1) %>% count()  ## Change A1-A15
+~~~
+
+#### Column: A1
 ~~~
 # Groups:   A1 [3]
   A1        n
@@ -231,6 +265,22 @@ credit_clean <- na.omit(credit_df)
 ## Building Decision tree
 ### Training and Test Sets: Splitting Data
 > ทำการแบ่งเป็น Training set 70% และ Test set 30% 
+~~~
+index = sample(1:nrow(credit_clean), 457) ## 70%
+credit.train <- credit_clean[index,]
+credit.test <- credit_clean[-index,]
+~~~
+~~~
+## Build model 
+model_1 <- rpart(Y ~ ., data = credit.train,control = rpart.control(cp = 1))
+rpart.plot(model_1)
+model_1$variable.importance
+res_1 <- predict(model_1, credit.test, type = 'class')
+res_1
+table(res_1)
+confusionMatrix(res_1, as.factor(credit.test$Y), positive="+", mode="prec_recall")
+~~~
+
 > เมื่อนำมา Train model และทำการ Predict ค่าแล้ว นำไปคำนวณ Confusion matrix ได้ค่า Accuracy = 0.8673 และ F1-score = 0.8632 (ซึ่งค่า cp ตอนนี้ใช้ค่า Default = 0.01)
 
 ~~~
@@ -253,6 +303,14 @@ Prediction  -  +
 
 ## Adjusting Complexity parameter
 > ทำ pruning โดยปรับค่า Complexity parameter จาก 0.001-1 เพื่อหาช่วงที่มี accuracy และ F1 score มากที่สุด โดยพบว่าช่วง 0.02-0.6 มีค่ามากที่สุด คือ accuracy 0.8724 และ F1 score 0.8768
+~~~
+model_2 <- rpart(Y ~ ., data = credit.train,control = rpart.control(cp = 0.02))
+res_2 <- predict(model_2, credit.test, type = 'class')
+res_2
+res3 <- predict(model_2, credit.train, type = 'class')
+confusionMatrix(res_2, as.factor(credit.test$Y), positive="+", mode="prec_recall")
+rpart.plot(model_2)
+~~~
 
 | CP | Accuracy | F1-score |
 |----|----------|----------|
