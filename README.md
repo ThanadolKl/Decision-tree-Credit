@@ -124,18 +124,7 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
  1 ?         9
  2 aa       54
  3 c       137
- 4 cc       41
- 5 d        30
- 6 e        25
- 7 ff       53
- 8 i        59
- 9 j        10
-10 k        51
-11 m        38
-12 q        78
-13 r         3
-14 w        64
-15 x        38
+ .............
 ~~~
 
 #### Column: A7
@@ -146,13 +135,7 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
  1 ?         9
  2 bb       59
  3 dd        6
- 4 ff       57
- 5 h       138
- 6 j         8
- 7 n         4
- 8 o         2
- 9 v       399
-10 z         8
+ .............
 ~~~
 
 #### Column: A8
@@ -263,7 +246,9 @@ Prediction  -  +
 ~~~
 
 > ซึ่งจากค่า Accuracy และ F1-score ที่ได้ก็พบว่าค่อนข้างดีเลยทีเดียว และเมื่อทำการ plot Decision tree ออกมา ก็ได้ตามนี้ (file: Dt_0.01)
->
+
+![0 01 default](https://user-images.githubusercontent.com/67301601/132957407-36d3661d-bee3-4450-b425-b8adbeff02ec.png)
+
 ## Adjusting Complexity parameter
 > ทำ pruning โดยปรับค่า Complexity parameter จาก 0.001-1 เพื่อหาช่วงที่มี accuracy และ F1 score มากที่สุด โดยพบว่าช่วง 0.02-0.6 มีค่ามากที่สุด คือ accuracy 0.8724 และ F1 score 0.8768
 
