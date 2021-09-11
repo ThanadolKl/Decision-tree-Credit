@@ -9,7 +9,7 @@
 * Adjusting Complexity parameter
 
 ##  Data Preparation
-> เมื่อทำการ
+> เมื่อทำการ Import data เข้ามาแล้ว ทำการ summary data ดูคร่าว ๆ ก่อนว่า data ในแต่ละ column เป็น type อะไร 
 ~~~
 > summary(credit_df)
       A1                 A2                  A3              A4           
@@ -41,6 +41,13 @@
                     3rd Qu.:   395.5                     
                     Max.   :100000.0          
 ~~~
+> จากนั้นจะเจอปัญหาอยู่ที่ column A2 และ A14 ที่ข้อมูลจริง ๆ ควรเป็น numeric แต่จริง ๆ แล้วเป็น character ซึ่งเวลานำ model ไป predict จะเกิดปัญหาว่า factors บางตัวอาจจะไม่อยู่ใน training set แต่ไปโผล่ใน test set ซึ่งพอเป็น character มันจะนับว่าเป็น class ใหม่ ทำให้เกิด Error ดังข้อความด้านล่าง 
+
+~~~
+Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(object,  : 
+  factor A4 has new levels 
+~~~
+> จึงต้องทำการเปลี่ยน A2 และ A14 เป็น as.numeric(credit_clean$A2) and as.numeric(credit_clean$A14)
 
 ### as num
 
