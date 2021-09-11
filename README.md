@@ -1,6 +1,6 @@
 # Decision-tree-Credit
-# Authors : 
-# Contens
+# Authors : Thanadol Klainin 6S No.8 | Chalisa Pornsukjantra 6C No.6
+# Contents
 * Data Preparation
 * Exploratory Data Analysis --> Univariate
 * Data Cleaning --> Remove NA
@@ -12,6 +12,7 @@
 
 ##  Data Preparation
 > เมื่อทำการ Import data เข้ามาแล้ว ทำการ summary data ดูคร่าว ๆ ก่อนว่า data ในแต่ละ column เป็น type อะไร 
+
 ~~~
 > summary(credit_df)
       A1                 A2                  A3              A4           
@@ -43,26 +44,31 @@
                     3rd Qu.:   395.5                     
                     Max.   :100000.0          
 ~~~
+
 > จากนั้นจะเจอปัญหาอยู่ที่ column A2 และ A14 ที่ข้อมูลจริง ๆ ควรเป็น numeric แต่จริง ๆ แล้วเป็น character ซึ่งเวลานำ model ไป predict จะเกิดปัญหาว่า factors บางตัวอาจจะไม่อยู่ใน training set แต่ไปโผล่ใน test set ซึ่งพอเป็น character มันจะนับว่าเป็น class ใหม่ ทำให้เกิด Error ดังข้อความด้านล่าง 
 
 ~~~
 Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(object,  : 
   factor A4 has new levels 
 ~~~
+
 > จึงต้องทำการเปลี่ยน A2 และ A14 เป็น as.numeric(credit_clean$A2) and as.numeric(credit_clean$A14)
 
 ### Change character to numeric
+
 ~~~
 > typeof(credit_df$A2)
 [1] "double"
 > typeof(credit_df$A14)
 [1] "double"
 ~~~
+
 ---
 
 ## Exploratory Data Analysis [Univariate]
 > ทำการ print data ในแต่ละ column ว่ามีอะไรบ้าง มีจำนวนเท่าไหร่ มี NA ตรงไหนบ้าง
-#### A1
+#### Column: A1
+
 ~~~
 # Groups:   A1 [3]
   A1        n
@@ -71,20 +77,25 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 2 a       210
 3 b       468
 ~~~
-#### A2
+
+#### Column: A2
+
 ~~~
 > summary(credit_df$A2)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
   13.75   22.60   28.46   31.57   38.23   80.25      12 
 ~~~
 
-### A3
+#### Column: A3
+
 ~~~
 > summary(credit_df$A3)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
   0.000   1.000   2.750   4.759   7.207  28.000 
 ~~~
-### A4
+
+#### Column: A4
+
 ~~~
   A4        n
   <chr> <int>
@@ -93,7 +104,9 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 3 u       519
 4 y       163
 ~~~
-### A5
+
+#### Column: A5
+
 ~~~
   A5        n
   <chr> <int>
@@ -103,7 +116,8 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 4 p       163
 ~~~
 
-### A6
+#### Column: A6
+
 ~~~
    A6        n
    <chr> <int>
@@ -123,7 +137,9 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 14 w        64
 15 x        38
 ~~~
-### A7
+
+#### Column: A7
+
 ~~~
   A7        n
    <chr> <int>
@@ -139,7 +155,8 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 10 z         8
 ~~~
 
-### A8
+#### Column: A8
+
 ~~~
       A8     n
    <dbl> <int>
@@ -148,7 +165,8 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
  3 0.085    26
 ~~~
 
-### A9
+#### Column: A9
+
 ~~~
   A9        n
   <chr> <int>
@@ -156,7 +174,7 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 2 t       361
 ~~~
 
-### A10
+#### Column: A10
 
 ~~~
   A10       n
@@ -165,7 +183,8 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 2 t       295
 ~~~
 
-### A11 
+#### Column: A11 
+
 ~~~
     A11     n
    <int> <int>
@@ -176,7 +195,8 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
  5     4    15
 ~~~
 
-### A12
+### Column: A12
+
 ~~~
   A12       n
   <chr> <int>
@@ -184,7 +204,8 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 2 t       316
 ~~~
 
-### A13
+#### Column: A13
+
 ~~~
   A13       n
   <chr> <int>
@@ -192,38 +213,42 @@ Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(
 2 p         8
 3 s        57
 ~~~
-### A14
+#### Column: A14
+
 ~~~
 > summary(credit_df$A14)
    Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
       0      75     160     184     276    2000      13 
 ~~~
-### A15
+
+#### Column: A15
+
 ~~~
 > summary(credit_df$A15)
     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
      0.0      0.0      5.0   1017.4    395.5 100000.0 
 ~~~
+
+## Data Cleaning  [Remove NA]
 > จะเห็นว่ามีข้อมูล '?' และ NA อยู่หลายจุด อย่างแรกที่ทำคือ เปลี่ยน '?' --> NA แล้วกำจัด NA ทีเดียว 
+
 ~~~
 credit_df[credit_df == '?'] <- NA
 credit_clean <- na.omit(credit_df)
 ~~~
+
 > ก็จะพบว่าจำนวนข้อมูลที่ clean แล้ว เหลือ 653 rows (จากตอนแรก 690 rows) 
+
 ~~~
 > nrow(credit_clean)
 [1] 653
 ~~~
 
 ---
-## Build model
-~~~
-model_1 <- rpart(Y ~ ., data = credit.train)  ## cp default == 0.01
-model_1$variable.importance
-res_1 <- predict(model_1, credit.test, type = 'class')
-confusionMatrix(res_1, as.factor(credit.test$Y), positive="+", mode="prec_recall")
-~~~
-> จะได้ว่า
+## Building Decision tree
+### Training and Test Sets: Splitting Data
+> ทำการแบ่งเป็น Training set 70% และ Test set 30% 
+> เมื่อนำมา Train model และทำการ Predict ค่าแล้ว นำไปคำนวณ Confusion matrix ได้ค่า Accuracy = 0.8673
 ## Model I 
 
 
