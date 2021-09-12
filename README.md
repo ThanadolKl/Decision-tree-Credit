@@ -71,7 +71,7 @@ summary(credit_df)
 
 ~~~
 Error in model.frame.default(Terms, newdata, na.action = na.action, xlev = attr(object,  : 
-  factor A4 has new levels 
+  factor A14 has new levels 
 ~~~
 
 > จึงต้องทำการเปลี่ยน A2 และ A14 เป็น as.numeric(credit_clean$A2) and as.numeric(credit_clean$A14)
