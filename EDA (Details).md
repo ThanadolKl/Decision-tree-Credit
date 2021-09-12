@@ -65,3 +65,23 @@
 
 ![A15](https://user-images.githubusercontent.com/67301601/132986307-7e588cdf-af78-44f3-ada8-402c4981fce3.png)
 
+## Multivariate
+
+> check correlation
+
+~~~
+cred_num <- select_if(credit_clean, is.numeric)
+cor_cred <- cor(cred_num)
+cor_cred
+library(corrplot)
+col <- colorRampPalette(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA"))
+corrplot(cor_cred, method="color", col=col(200),  
+         type="lower", order="original", 
+         addCoef.col = "black", # Add coefficient of correlation
+         tl.col="black", tl.srt=45) 
+
+~~~
+
+
+![multivariate](https://user-images.githubusercontent.com/67301601/132986684-3b7ffdbb-1866-4aac-8518-4e052b631643.png)
+
