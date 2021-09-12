@@ -360,6 +360,7 @@ rpart.plot(model_2)
 
 >เมื่อลองดู model ที่ค่า cp = 0.02-0.6 แล้ว จะพบว่า model ค่อนข้าง simple มาก ใช้เพียง A9 ในการตัดสินใจ เมื่อลองดูข้อมูลใน column A9 เทียบกับ traget แล้ว จะพบว่า มีความสัมพันธ์บางอย่าง คือ ถ้า A9 ='t'
 จะมี labels = + (positive) อยู่ 89 ตัว และ A9 = 't' จะมี label =- (negative) อยู่ 19 ตัว ในขฯะเดียวกัน หาก A9 = 'f' จะมี label = positive อยู่ 6 ตัว negative อยู่ 82 ตัว เมื่อใช้เกณฑ์นี้ในการทำนาย จะได้ตาราง confusion martix ตามรูปด้านล่าง 
+
 ~~~
 Python
 > df_test.loc[df_test["A9"] == 't']['Y'].value_counts()
