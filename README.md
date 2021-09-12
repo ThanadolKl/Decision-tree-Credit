@@ -358,14 +358,27 @@ rpart.plot(model_2)
 
 ### ข้อน่าสังเกต
 
->เมื่อลองดู model ที่ค่า cp =0.02-0.6 แล้ว จะพบว่า model ค่อนข้าง simple มาก ใช้เพียง A9 ในการตัดสินใจ เมื่อลองดูข้อมูลใน column A9 เทียบกับ traget แล้ว จะพบว่า มีความสัมพันธ์บางอย่าง คือ ถ้า A9 ='t'
+>เมื่อลองดู model ที่ค่า cp = 0.02-0.6 แล้ว จะพบว่า model ค่อนข้าง simple มาก ใช้เพียง A9 ในการตัดสินใจ เมื่อลองดูข้อมูลใน column A9 เทียบกับ traget แล้ว จะพบว่า มีความสัมพันธ์บางอย่าง คือ ถ้า A9 ='t'
 จะมี labels = + (positive) อยู่ 89 ตัว และ A9 = 't' จะมี label =- (negative) อยู่ 19 ตัว ในขฯะเดียวกัน หาก A9 = 'f' จะมี label = positive อยู่ 6 ตัว negative อยู่ 82 ตัว เมื่อใช้เกณฑ์นี้ในการทำนาย จะได้ตาราง confusion martix ตามรูปด้านล่าง 
+~~~
+Python
+> df_test.loc[df_test["A9"] == 't']['Y'].value_counts()
+>> +    89
+   -    19
+Name: Y, dtype: int64
+
+> df_test.loc[df_test["A9"] == 'f']['Y'].value_counts()
+>> -    82
+   +     6
+Name: Y, dtype: int64
+~~~
 
 |    | Actually Positive | Actually Negative |
 |----|-------------------|-------------------|
 |Predicted Positive |  89 | 19|
 | Predicted Negative | 6 | 82|
 
+> ซึ่งจะได้ค่า Accuray = Accuracy = (TP+TN)/(TP+TN+FP+FN)  = 171/196 = 0.8724  ซึ่งนับเป็นค่า accuracy ที่ค่อนข้างสูงเลยทีเดียว เพียงแค่พิจารณา column A9
 
 ---
 
